@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 export const Rating = ({ rating, reviews, color }) => {
-  console.log(rating)
   return (
     <>
       <span
