@@ -1,7 +1,7 @@
 import express from 'express'
-import products from '../data/products.js'
+import asyncHandler from 'express-async-handler';
+import Product from '../models/productModel.js';
 
-const app = express()
 const router = express.Router()
 
 router.use((req, res, next) => {
@@ -9,13 +9,23 @@ router.use((req, res, next) => {
   next()
 })
 
-router.route('').get((req, res) => {
-  res.send(products)
-})
+router.get(
+  '/',
+  asyncHandler(async (req, res) => {
+    const products = await Product.find({});
+    res.json(products);
+  })
+);
 
-router.route('/:_id').get((req, res) => {
-  const product = products.find((product) => product._id === req.params._id)
-  res.send(product)
-})
+router.get('/:_id', asyncHandler(async(req, res) => {
+  const product = await Product.findById(req.params._id);
+  if (product){ 
+    res.json(product)
+  }
+  else{
+    res.status(400)
+    throw new Error("Product doesn't exists")
+  }
+}))
 
 export default router
