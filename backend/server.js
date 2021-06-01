@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './db/dbConfig.js'
 import productRoutes from './routes/productRoutes.js'
+import userRoutes from "./routes/userRoutes.js";
 import {notFound, errorHandler} from './middlewares/errorMiddleware.js'
 
 const app = express()
@@ -14,10 +15,9 @@ connectDB()
 app.route('/').get((req, res) => {
   res.send('Server Running...')
 })
-/**
- * Product Routes
- */
+
 app.use('/api/products', productRoutes)
+app.use("/api/users", userRoutes);
 
 app.use(notFound)
 app.use(errorHandler)

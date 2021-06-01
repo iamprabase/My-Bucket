@@ -63,6 +63,7 @@ export const Rating = ({ rating, reviews, color }) => {
 
 Rating.defaultProps = {
   color: '#ffd400',
+  rating: 0
 };
 
 Rating.propTypes = {
